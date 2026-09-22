@@ -51,7 +51,9 @@ function monthlyAggregates(sessions) {
     }
     const entry = byMonth.get(key);
     entry.hours += Number(session.hours);
-    entry.sessionCount += 1;
+    if (!session.special) {
+      entry.sessionCount += 1;
+    }
   }
 
   return Array.from(byMonth.values()).sort((a, b) => (a.key < b.key ? 1 : -1));
