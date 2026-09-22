@@ -3,10 +3,21 @@
   color-scheme: light;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background: #f7f8f5;
   color: #14231d;
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 button,
@@ -103,9 +114,12 @@ textarea {
 }
 
 main {
+  flex: 1;
+  width: 100%;
   max-width: 960px;
   margin: 2rem auto;
   padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .dashboard-header {
@@ -381,4 +395,46 @@ h1,
 h2,
 h3 {
   color: #225e4c;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 1.5rem 1rem;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.footer h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.footer p {
+  margin: 0.15rem 0;
+  color: #3f5951;
+  font-size: 0.875rem;
+}
+
+.footer-contact {
+  text-align: left;
+}
+
+.footer-notice {
+  max-width: 380px;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .footer-notice {
+    max-width: none;
+    text-align: left;
+  }
 }

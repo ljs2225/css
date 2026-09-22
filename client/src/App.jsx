@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { NavBar } from './components/NavBar.jsx';
+import { Footer } from './components/Footer.jsx';
 import { DashboardPage } from './pages/DashboardPage.jsx';
 import { NewStudentPage } from './pages/NewStudentPage.jsx';
 import { NewSessionPage } from './pages/NewSessionPage.jsx';
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/sessions/new" element={<NewSessionPage />} />
         </Routes>
       </main>
+      <Footer />
     </>
   );
 }
