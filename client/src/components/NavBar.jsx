@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { api } from '../api/client.js';
 
@@ -24,7 +25,9 @@ export function NavBar() {
 
   return (
     <nav className="navbar">
-      <span className="navbar-brand">LVAEP Tutoring</span>
+      <Link to="/" className="navbar-brand">
+        LVAEP Tutoring
+      </Link>
 
       {tutor && (
         <div className="tutor-menu" ref={menuRef}>

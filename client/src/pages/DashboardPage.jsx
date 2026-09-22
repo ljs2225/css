@@ -36,10 +36,10 @@ export function DashboardPage() {
         <h1>Students</h1>
         <div className="dashboard-actions">
           <Link to="/students/new" className="button">
-            Add Student
+            + Add Student
           </Link>
           <Link to="/sessions/new" className="button">
-            Add Session
+            + Add Session
           </Link>
         </div>
       </div>

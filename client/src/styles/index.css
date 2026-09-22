@@ -20,6 +20,12 @@ body {
 
 .navbar-brand {
   font-weight: 600;
+  color: inherit;
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  text-decoration: underline;
 }
 
 .tutor-menu {
@@ -314,13 +320,30 @@ form label {
   margin-bottom: 0.75rem;
 }
 
-form input,
+form input:not([type='checkbox']),
+form select,
 form textarea {
   display: block;
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.25rem;
   box-sizing: border-box;
+}
+
+.achievements-fieldset {
+  margin: 1.5rem 0;
+  padding: 0;
+  border: none;
+}
+
+.achievements-fieldset legend {
+  padding: 0;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.achievement-item input:disabled {
+  cursor: not-allowed;
 }
 
 table {

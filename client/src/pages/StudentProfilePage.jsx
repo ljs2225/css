@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../api/client.js';
 import { ACHIEVEMENT_CATEGORIES } from '../constants/achievements.js';
+import { todayLocalDate } from '../utils/date.js';
 
 const SPECIAL_LABELS = {
   1: 'Tutor Absent',
@@ -29,14 +30,6 @@ function formatDate(isoDateString) {
 function formatNotes(special) {
   if (!special) return '—';
   return SPECIAL_LABELS[special] ?? `Unknown (${special})`;
-}
-
-function todayLocalDate() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
 }
 
 function monthlyAggregates(sessions) {
