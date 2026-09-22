@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SessionForm } from '../components/SessionForm.jsx';
 import { api } from '../api/client.js';
 
@@ -12,6 +12,7 @@ export function NewSessionPage() {
 
   return (
     <div>
+      <Link to="/">← Back to dashboard</Link>
       <h1>Log a session</h1>
       <SessionForm onSubmit={handleSubmit} />
     </div>
