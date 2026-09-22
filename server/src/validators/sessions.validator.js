@@ -9,8 +9,8 @@ export function validateSessionInput(req, res, next) {
   if (!sessionDate || Number.isNaN(Date.parse(sessionDate))) {
     return next(new ApiError(400, 'sessionDate is required and must be a valid date'));
   }
-  if (!hours || typeof hours !== 'number' || hours <= 0) {
-    return next(new ApiError(400, 'hours is required and must be a positive number'));
+  if (typeof hours !== 'number' || Number.isNaN(hours) || hours < 0) {
+    return next(new ApiError(400, 'hours is required and must be a non-negative number'));
   }
 
   next();
