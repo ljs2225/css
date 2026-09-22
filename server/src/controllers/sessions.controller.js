@@ -4,14 +4,22 @@ import { DEFAULT_TUTOR_EMAIL } from '../config/constants.js';
 
 export async function listSessions(req, res, next) {
   try {
+    const { studentId } = req.query;
+    const params = [DEFAULT_TUTOR_EMAIL];
+    let studentFilter = '';
+    if (studentId) {
+      studentFilter = 'AND s.student_id = ?';
+      params.push(studentId);
+    }
+
     const [rows] = await pool.query(
       `SELECT s.student_id, s.session_date, s.hours, s.special,
               CONCAT(st.first_name, ' ', st.last_name) AS student_name
        FROM sessions s
        JOIN students st ON st.id = s.student_id
-       WHERE s.tutor_id = ?
+       WHERE s.tutor_id = ? ${studentFilter}
        ORDER BY s.session_date DESC`,
-      [DEFAULT_TUTOR_EMAIL],
+      params,
     );
     res.json(rows);
   } catch (err) {

@@ -9,12 +9,13 @@ INSERT INTO students (first_name, last_name, tutoring_site, days, times, ended, 
 -- special number indicates TA (1), SA (2), and H (3)
 INSERT INTO sessions (tutor_id, student_id, session_date, hours, special) VALUES
   ('ljs2225@columbia.edu', 1, '2026-09-14', 1.5, null),
+  ('ljs2225@columbia.edu', 1, '2026-08-19', 1.5, null),
   ('ljs2225@columbia.edu', 2, '2026-09-15', 0, 2),
   ('ljs2225@columbia.edu', 2, '2026-09-08', 2, null);
 
 -- achivement number indicates which achievement has been achieved
 INSERT INTO achievements (tutor_id, student_id, session_date, achievement, other) VALUES
-	('ljs2225@columbia.edu', 1, '2026-09-14', 8),
-	('ljs2225@columbia.edu', 1, '2026-09-14', 11),
-	('ljs2225@columbia.edu', 2, '2026-09-08', 4),
+	('ljs2225@columbia.edu', 1, '2026-09-14', 8, null),
+	('ljs2225@columbia.edu', 1, '2026-09-14', 11, null),
+	('ljs2225@columbia.edu', 2, '2026-09-08', 4, null),
 	('ljs2225@columbia.edu', 2, '2026-09-08', 18, 'Other example');

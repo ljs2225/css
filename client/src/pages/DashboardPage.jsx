@@ -2,6 +2,20 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../api/client.js';
 
+function StudentListItem({ student }) {
+  const initials = `${student.first_name[0]}${student.last_name[0]}`;
+  return (
+    <li>
+      <Link to={`/students/${student.id}`} className="student-list-item">
+        <div className="tutor-avatar">{initials}</div>
+        <span className="student-list-name">
+          {student.first_name} {student.last_name}
+        </span>
+      </Link>
+    </li>
+  );
+}
+
 export function DashboardPage() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,6 +26,9 @@ export function DashboardPage() {
       .then(setStudents)
       .finally(() => setLoading(false));
   }, []);
+
+  const activeStudents = students.filter((student) => !student.ended);
+  const archivedStudents = students.filter((student) => student.ended);
 
   return (
     <div>
@@ -30,30 +47,24 @@ export function DashboardPage() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Site</th>
-              <th>Days</th>
-              <th>Times</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr key={student.id}>
-                <td>
-                  {student.first_name} {student.last_name}
-                </td>
-                <td>{student.tutoring_site}</td>
-                <td>{student.days}</td>
-                <td>{student.times}</td>
-                <td>{student.ended ? 'Ended' : 'Active'}</td>
-              </tr>
+        <>
+          <ul className="student-list">
+            {activeStudents.map((student) => (
+              <StudentListItem key={student.id} student={student} />
             ))}
-          </tbody>
-        </table>
+          </ul>
+
+          {archivedStudents.length > 0 && (
+            <>
+              <h2 className="section-heading">Archived</h2>
+              <ul className="student-list student-list--archived">
+                {archivedStudents.map((student) => (
+                  <StudentListItem key={student.id} student={student} />
+                ))}
+              </ul>
+            </>
+          )}
+        </>
       )}
     </div>
   );

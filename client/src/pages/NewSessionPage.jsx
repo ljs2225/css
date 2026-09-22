@@ -12,7 +12,9 @@ export function NewSessionPage() {
 
   return (
     <div>
-      <Link to="/">← Back to dashboard</Link>
+      <Link to="/" className="button button-secondary back-button">
+        ← Back to dashboard
+      </Link>
       <h1>Log a session</h1>
       <SessionForm onSubmit={handleSubmit} />
     </div>
