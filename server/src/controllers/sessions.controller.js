@@ -37,6 +37,9 @@ export async function createSession(req, res, next) {
     );
     res.status(201).json({ studentId, sessionDate });
   } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      return next(new ApiError(409, 'A session for this student on this date has already been logged.'));
+    }
     next(err);
   }
 }

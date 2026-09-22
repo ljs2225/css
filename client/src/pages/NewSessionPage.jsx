@@ -7,6 +7,7 @@ export function NewSessionPage() {
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     api
@@ -16,13 +17,18 @@ export function NewSessionPage() {
   }, []);
 
   async function handleSubmit({ studentId, sessionDate, hours, special, newAchievements }) {
-    await api.post('/sessions', { studentId, sessionDate, hours, special });
-    await Promise.all(
-      newAchievements.map((achievement) =>
-        api.post('/achievements', { studentId, sessionDate, achievement }),
-      ),
-    );
-    navigate('/');
+    setError('');
+    try {
+      await api.post('/sessions', { studentId, sessionDate, hours, special });
+      await Promise.all(
+        newAchievements.map((achievement) =>
+          api.post('/achievements', { studentId, sessionDate, achievement }),
+        ),
+      );
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   return (
@@ -31,6 +37,7 @@ export function NewSessionPage() {
         ← Back to dashboard
       </Link>
       <h1>Log a session</h1>
+      {error && <p className="form-error">{error}</p>}
       {loading ? (
         <p>Loading...</p>
       ) : students.length === 0 ? (

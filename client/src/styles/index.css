@@ -234,6 +234,15 @@ main {
   color: #b00020;
 }
 
+.form-error {
+  background: #fdecea;
+  color: #b00020;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
 .profile-layout {
   display: grid;
   grid-template-columns: 1fr 260px;

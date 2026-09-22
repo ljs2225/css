@@ -65,6 +65,7 @@ export function StudentProfilePage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('sessions');
   const [endingTutoring, setEndingTutoring] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -103,6 +104,7 @@ export function StudentProfilePage() {
     if (!confirmed) return;
 
     const endDate = todayLocalDate();
+    setError('');
     setEndingTutoring(true);
     try {
       await api.patch(`/students/${id}/end`, { endDate });
@@ -110,6 +112,8 @@ export function StudentProfilePage() {
       window.alert(
         'Please notify the office ASAP that this student is no longer being tutored, along with the reason.',
       );
+    } catch (err) {
+      setError(err.message);
     } finally {
       setEndingTutoring(false);
     }
@@ -120,6 +124,8 @@ export function StudentProfilePage() {
       <Link to="/" className="button button-secondary back-button">
         ← Back to dashboard
       </Link>
+
+      {error && <p className="form-error">{error}</p>}
 
       <div className="profile-header">
         <div className="profile-identity">
