@@ -1,12 +1,13 @@
 import { pool } from '../db/pool.js';
 import { ApiError } from '../utils/ApiError.js';
-import { DEFAULT_TUTOR_ID } from '../config/constants.js';
+import { DEFAULT_TUTOR_EMAIL } from '../config/constants.js';
 
 export async function getCurrentTutor(req, res, next) {
   try {
-    const [rows] = await pool.query('SELECT id, name, email FROM tutors WHERE id = ?', [
-      DEFAULT_TUTOR_ID,
-    ]);
+    const [rows] = await pool.query(
+      'SELECT email, first_name, last_name FROM tutors WHERE email = ?',
+      [DEFAULT_TUTOR_EMAIL],
+    );
     if (!rows[0]) {
       throw new ApiError(404, 'No tutor configured');
     }

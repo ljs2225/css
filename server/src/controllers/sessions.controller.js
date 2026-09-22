@@ -1,16 +1,17 @@
 import { pool } from '../db/pool.js';
 import { ApiError } from '../utils/ApiError.js';
-import { DEFAULT_TUTOR_ID } from '../config/constants.js';
+import { DEFAULT_TUTOR_EMAIL } from '../config/constants.js';
 
 export async function listSessions(req, res, next) {
   try {
     const [rows] = await pool.query(
-      `SELECT s.id, s.session_date, s.hours, s.notes, st.name AS student_name
+      `SELECT s.student_id, s.session_date, s.hours, s.special,
+              CONCAT(st.first_name, ' ', st.last_name) AS student_name
        FROM sessions s
        JOIN students st ON st.id = s.student_id
        WHERE s.tutor_id = ?
        ORDER BY s.session_date DESC`,
-      [DEFAULT_TUTOR_ID],
+      [DEFAULT_TUTOR_EMAIL],
     );
     res.json(rows);
   } catch (err) {
@@ -20,13 +21,13 @@ export async function listSessions(req, res, next) {
 
 export async function createSession(req, res, next) {
   try {
-    const { studentId, sessionDate, hours, notes } = req.body;
-    const [result] = await pool.query(
-      `INSERT INTO sessions (tutor_id, student_id, session_date, hours, notes)
+    const { studentId, sessionDate, hours, special } = req.body;
+    await pool.query(
+      `INSERT INTO sessions (tutor_id, student_id, session_date, hours, special)
        VALUES (?, ?, ?, ?, ?)`,
-      [DEFAULT_TUTOR_ID, studentId, sessionDate, hours, notes ?? null],
+      [DEFAULT_TUTOR_EMAIL, studentId, sessionDate, hours, special ?? null],
     );
-    res.status(201).json({ id: result.insertId });
+    res.status(201).json({ studentId, sessionDate });
   } catch (err) {
     next(err);
   }
@@ -34,11 +35,11 @@ export async function createSession(req, res, next) {
 
 export async function deleteSession(req, res, next) {
   try {
-    const { id } = req.params;
-    const [result] = await pool.query('DELETE FROM sessions WHERE id = ? AND tutor_id = ?', [
-      id,
-      DEFAULT_TUTOR_ID,
-    ]);
+    const { studentId, sessionDate } = req.params;
+    const [result] = await pool.query(
+      'DELETE FROM sessions WHERE tutor_id = ? AND student_id = ? AND session_date = ?',
+      [DEFAULT_TUTOR_EMAIL, studentId, sessionDate],
+    );
     if (result.affectedRows === 0) {
       throw new ApiError(404, 'Session not found');
     }

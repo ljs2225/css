@@ -10,6 +10,6 @@ const router = Router();
 
 router.get('/', listSessions);
 router.post('/', validateSessionInput, createSession);
-router.delete('/:id', deleteSession);
+router.delete('/:studentId/:sessionDate', deleteSession);
 
 export default router;
