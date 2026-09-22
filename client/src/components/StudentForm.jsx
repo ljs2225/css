@@ -49,7 +49,9 @@ export function StudentForm({ onSubmit }) {
           required
         />
       </label>
-      <button type="submit">Save student</button>
+      <button type="submit" className="button">
+        Save student
+      </button>
     </form>
   );
 }

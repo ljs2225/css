@@ -11,7 +11,7 @@ const SPECIAL_OPTIONS = [
 ];
 
 export function SessionForm({ students, onSubmit }) {
-  const [studentId, setStudentId] = useState(String(students[0]?.id ?? ''));
+  const [studentId, setStudentId] = useState('');
   const [sessionDate, setSessionDate] = useState(todayLocalDate());
   const [hours, setHours] = useState('');
   const [special, setSpecial] = useState('');
@@ -127,7 +127,9 @@ export function SessionForm({ students, onSubmit }) {
         ))}
       </fieldset>
 
-      <button type="submit">Save session</button>
+      <button type="submit" className="button">
+        Save session
+      </button>
     </form>
   );
 }
