@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { readFileSync } from 'node:fs';
 
 function required(name) {
   const value = process.env[name];
@@ -17,5 +18,6 @@ export const env = {
     user: required('DB_USER'),
     password: required('DB_PASSWORD'),
     database: required('DB_NAME'),
+    ssl: process.env.DB_SSL_CA ? { ca: readFileSync(process.env.DB_SSL_CA, 'utf8') } : undefined,
   },
 };

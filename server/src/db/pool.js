@@ -7,6 +7,7 @@ export const pool = mysql.createPool({
   user: env.db.user,
   password: env.db.password,
   database: env.db.database,
+  ssl: env.db.ssl,
   waitForConnections: true,
   connectionLimit: 10,
 });
